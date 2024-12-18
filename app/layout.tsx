@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider"
+import { ModeToggle } from "@/components/theme-toggleButton";
+import NavBar from "@/components/navBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,11 +26,34 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" >
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >
+         <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <nav className=" mt-4  ">
+              <NavBar/>
+              <div className="w-full flex justify-end pr-10">
+              <ModeToggle/>
+              </div>
+          <div className="text-6xl mt-28  font-bold   ml-8 ">
+            Recipies for ninjas
+            
+          </div>
+          
+        </nav>
+        <div >
         {children}
+        </div>
+            
+          </ThemeProvider>
+        
+       
       </body>
     </html>
   );
